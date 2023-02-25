@@ -106,15 +106,25 @@ def med_value(myList):
 
 def plotta_data(data, header):
 
-    x = range(1, len(data[0]))
+    x = [rows for rows in data[0][1:]]
+    #x = range(1, len(data[0]))
 
     if data == tjansteData or data == livsmedelData:
         
         for i in range(1, len(data)):
             y = [float(row) for row in data[i][1:]]
+            
             plt.plot(x, y, label=data[i][0])
 
-            
+
+    elif data == tjansteData and data == livsmedelData:
+        
+        for i in range(1, len(data)):
+            y = [float(row) for row in data[i][1:]]
+            fig , (ax1, ax2) = plt.subplots(1, 2)
+            fig.suptitle('Diagram för Livsmedel samt olika varor och tjänster')
+            ax1.plot(x, y)
+            ax2.plot(x, y)
             
         """
         elif data == livsmedelData:
@@ -152,7 +162,9 @@ def plotta_data(data, header):
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Prisutvecklingen', fontsize='x-small')
     plt.legend(categories, fontsize= 'xx-small', loc='upper left')
-    #plt.xlim(1980, 2020)
+    
+    # Varför fungerar inte detta? 
+    #plt.xlim([1980, 2020])
 
     plt.grid()
 
@@ -267,13 +279,13 @@ while True:
         elif secondChoice == 3:
 
             header = 'kategorier av varor och tjänster'
-            # anropa funktionen med två argument
-            plotta_data(tjansteData, header)
-
-
             header = 'livsmedel'
             # anropa funktionen med två argument
-            plotta_data(livsmedelData, header)
+            plotta_data(tjansteData and livsmedelData, header)
+
+
+            # anropa funktionen med två argument
+            #plotta_data(livsmedelData, header)
 
 
         else: 
