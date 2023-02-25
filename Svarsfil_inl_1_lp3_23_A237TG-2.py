@@ -106,46 +106,38 @@ def med_value(myList):
 
 def plotta_data(data, header):
 
-    if data == tjansteData:
- 
-        prices_1 = [float(row) for row in data[1][1:]]
-        prices_2 = [float(row) for row in data[2][1:]]
-        prices_3 = [float(row) for row in data[3][1:]]
-        prices_4 = [float(row) for row in data[4][1:]]
-        prices_5 = [float(row) for row in data[5][1:]]
-        prices_6 = [float(row) for row in data[6][1:]]
-        prices_7 = [float(row) for row in data[7][1:]]
+    x = range(1, len(data[0]))
 
-        # Tableau palette 
-        plt.plot(prices_1, c='blue')
-        plt.plot(prices_2, c='orange')
-        plt.plot(prices_3, c='green')
-        plt.plot(prices_4, c='red')
-        plt.plot(prices_5, c='purple')
-        plt.plot(prices_6, c='brown')
-        plt.plot(prices_7, c='pink')
-
-
-    elif data == livsmedelData:
-
-        prices_1 = [float(row) for row in data[1][1:]]
-        prices_2 = [float(row) for row in data[2][1:]]
-        prices_3 = [float(row) for row in data[3][1:]]
-        prices_4 = [float(row) for row in data[4][1:]]
-        prices_5 = [float(row) for row in data[5][1:]]
-        prices_6 = [float(row) for row in data[6][1:]]
-        prices_7 = [float(row) for row in data[7][1:]]
-        prices_8 = [float(row) for row in data[8][1:]]
+    if data == tjansteData or data == livsmedelData:
         
-        plt.plot(prices_1, c='blue')
-        plt.plot(prices_2, c='orange')
-        plt.plot(prices_3, c='green')
-        plt.plot(prices_4, c='red')
-        plt.plot(prices_5, c='purple')
-        plt.plot(prices_6, c='brown')
-        plt.plot(prices_7, c='pink')
-        plt.plot(prices_8, c='grey')
+        for i in range(1, len(data)):
+            y = [float(row) for row in data[i][1:]]
+            plt.plot(x, y, label=data[i][0])
 
+            
+            
+        """
+        elif data == livsmedelData:
+
+            prices_1 = [float(row) for row in data[1][1:]]
+            prices_2 = [float(row) for row in data[2][1:]]
+            prices_3 = [float(row) for row in data[3][1:]]
+            prices_4 = [float(row) for row in data[4][1:]]
+            prices_5 = [float(row) for row in data[5][1:]]
+            prices_6 = [float(row) for row in data[6][1:]]
+            prices_7 = [float(row) for row in data[7][1:]]
+            prices_8 = [float(row) for row in data[8][1:]]
+            
+            plt.plot(prices_1, c='blue')
+            plt.plot(prices_2, c='orange')
+            plt.plot(prices_3, c='green')
+            plt.plot(prices_4, c='red')
+            plt.plot(prices_5, c='purple')
+            plt.plot(prices_6, c='brown')
+            plt.plot(prices_7, c='pink')
+            plt.plot(prices_8, c='grey')
+
+        """
 
     else:
         print('felaktig data')
@@ -156,9 +148,9 @@ def plotta_data(data, header):
 
     #years = [rows for rows in data[0][1:]]
 
-    plt.title(header, fontsize= 'small')
-    plt.xlabel('År', fontsize='small')
-    plt.ylabel('Prisutvecklingen', fontsize='small')
+    plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
+    plt.xlabel('År', fontsize='x-small')
+    plt.ylabel('Prisutvecklingen', fontsize='x-small')
     plt.legend(categories, fontsize= 'xx-small', loc='upper left')
     #plt.xlim(1980, 2020)
 
@@ -240,13 +232,13 @@ while True:
         
         # Alternativ 2: 
         """
-        kpi_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
+        kpi_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
         print(kpiData)
 
-        tjanster_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'tjanster.csv'
+        tjanster_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'tjanster.csv'
         print(tjansteData)
 
-        livsmedel_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'livsmedel.csv'
+        livsmedel_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'livsmedel.csv'
         print(livsmedelData)
 
         """
@@ -256,30 +248,32 @@ while True:
 
     elif choice == 3:
         print('\n- Meny - ')
-        print('1. Skriv ut diagram från tjansteData.')
-        print('2. Skriv ut diagram från livsmedelData.')
-        print('3. Skriv ut båda diagram.\n')
+        print('1. Skriv ut TjansteData diagrammet.')
+        print('2. Skriv ut LivsmedelData diagrammet.')
+        print('3. Skriv ut båda diagrammen.\n')
 
         secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
 
         if secondChoice == 1:
-            header = '\nPrisutvecklingen för olika kategorier av varor och tjänster År 1980-2021'
+            header = 'kategorier av varor och tjänster'
             plotta_data(tjansteData, header)
             # anropa funktionen med två argument 
 
         elif secondChoice == 2:
-            header = '\nPrisutvecklingen för olika livsmedel År 1980-2021'
+            header = 'livsmedel'
             plotta_data(livsmedelData, header)
             # anropa funktionen med två argument
 
         elif secondChoice == 3:
-            header = 'Prisutvecklingen för olika kategorier av varor och tjänster År 1980-2021'
-            # anropa funktionen med två argument
 
-            print('\n')
-
-            header = '\nPrisutvecklingen för olika livsmedel År 1980-2021'
+            header = 'kategorier av varor och tjänster'
             # anropa funktionen med två argument
+            plotta_data(tjansteData, header)
+
+
+            header = 'livsmedel'
+            # anropa funktionen med två argument
+            plotta_data(livsmedelData, header)
 
 
         else: 
