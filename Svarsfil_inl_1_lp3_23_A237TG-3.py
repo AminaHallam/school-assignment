@@ -134,7 +134,7 @@ def plotta_data(data, header):
             #ax1.plot(x, y)
             #ax2.plot(x, y)
         
-        
+
         """
         elif data == livsmedelData:
 
@@ -266,8 +266,8 @@ while True:
 
     elif choice == 3:
         print('\n- Meny - ')
-        print('1. Skriv ut TjansteData diagrammet.')
-        print('2. Skriv ut LivsmedelData diagrammet.')
+        print('1. Skriv ut diagram för Tjänster.')
+        print('2. Skriv ut diagram för Livsmedel.')
         print('3. Skriv ut båda diagrammen.\n')
 
         secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
