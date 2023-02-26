@@ -1,5 +1,8 @@
 # coding: utf-8
 
+import os
+os.system('clear') # function system to issue command cls 
+
 
 kpi_10 = [['År', 'Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'], ['2019', '328.56', '331.02', '331.79', '334.11', '334.95', '334.47', '335.8', '334.39', '335.95', '336.04', '336.36', '337.68'], ['2018', '322.51', '324.87', '325.76', '327.1', '327.86', '328.62', '330.33', '329.63', '331.14', '330.72', '330.4', '331.87'], ['2017', '317.5', '319.73', '319.68', '321.54', '321.74', '321.97', '323.69', '323.18', '323.62', '323.38', '324.04', '325.23'], ['2016', '313.13', '314.14', '315.7', '315.64', '316.21', '316.54', '316.73', '316.38', '316.91', '318', '318.1', '319.68'], ['2015', '310.75', '312.93', '313.19', '313.16', '314.24', '313.33', '313.43', '312.81', '314.06', '314.29', '313.75', '314.21'], ['2014', '311.39', '312.7', '312.68', '313.89', '314.05', '314.7', '313.67', '313.35', '313.85', '314.02', '313.56', '314.05'], ['2013', '312', '313.39', '314.65', '314.03', '314.54', '313.99', '313.55', '313.84', '315.05', '314.4', '314.2', '315.04'], ['2012', '311.85', '313.92', '314.8', '315.49', '315.23', '314.45', '313.23', '313.55', '314.81', '314.59', '313.82', '314.61'], ['2011', '306.15', '308.02', '310.11', '311.44', '312.02', '311.28', '311.13', '311.23', '313.41', '313.42', '314.16', '314.78'], ['2010', '299.79', '301.59', '302.32', '302.36', '302.92', '302.97', '302.04', '302.06', '304.6', '305.57', '306.58', '308.73']]
 
@@ -15,8 +18,12 @@ def print_kpi_10(): #Skriver ut listan kpi_10
 
 # Skriv din kod här:
 
-# Import av csv för att kunna hantera filen lättare. 
+# Import av olika moduler för att underlätta kodning. 
+import matplotlib.pyplot as plt
+import numpy as np 
 import csv 
+
+
 #Funktion för att läsa csv-filer.  
 def read_file(csv_files):
     with open(csv_files, "r", encoding='UTF-8') as file:
@@ -47,9 +54,11 @@ def sum_func(my_list):
         for j in range(1, len(my_list[i])):        
             tot += float(my_list[i][j])            
         new_list.append(tot)                        
-
+            
     new_list.insert(0, 'Radsumma')                  
     return new_list                                 
+
+                       
 
 
 
@@ -88,6 +97,85 @@ def med_value(myList):
     for i in range(0, len(newList), 3):
         print(f'{"|"} {newList[i+0]:<40} {"|"} {newList[i+1]:>12} {"|"} {newList[i+2]:>12} {"|"}')
         print("+","-"*40,"+", "-"*12, "+", "-"*12, "+")
+
+
+
+
+# Funktion som skapar ett diagram beroende på vilket argument som skickas med i funktionen. 
+# funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
+# If-satsen kollar om det är antingen tjansteData eller livsmedelData, sedan for-loopen renderar listan från index 1.
+# y-variabeln tar in en one-line for-loop som konverterar elementen till float. 
+# plot() tar in (x, y), sedan längst ner i funktionen anges rubriken. 
+# label för både x- och y-axeln samt legent() som tar in kategorier. 
+
+def plotta_data(data, header):
+
+    # Fråga om hur man får ut åren längs med x-axeln, vilken x ska man ha? 
+    #x = [rows for rows in data[0][1:]]
+    #print(x[::10])
+    x = range(1, len(data[0]))
+
+    if data == tjansteData or data == livsmedelData:
+        
+        for i in range(1, len(data)):
+
+            y = [float(row) for row in data[i][1:]]
+            plt.plot(x, y, label=data[i][0])
+        
+
+    # Skall man göra en till if-sats för att få ut båda diagram bredvid varandra? hur är tanken med det? 
+    elif data == tjansteData and data == livsmedelData:
+        
+        for i in range(1, len(data)):
+            
+            y = [float(row) for row in data[i][1:]]
+            fig , (x, y) = plt.subplots(1, 2)
+            fig.suptitle('Diagram för Livsmedel samt olika varor och tjänster')
+            #ax1.plot(x, y)
+            #ax2.plot(x, y)
+        
+        
+        """
+        elif data == livsmedelData:
+
+            prices_1 = [float(row) for row in data[1][1:]]
+            prices_2 = [float(row) for row in data[2][1:]]
+            prices_3 = [float(row) for row in data[3][1:]]
+            prices_4 = [float(row) for row in data[4][1:]]
+            prices_5 = [float(row) for row in data[5][1:]]
+            prices_6 = [float(row) for row in data[6][1:]]
+            prices_7 = [float(row) for row in data[7][1:]]
+            prices_8 = [float(row) for row in data[8][1:]]
+            
+            plt.plot(prices_1, c='blue')
+            plt.plot(prices_2, c='orange')
+            plt.plot(prices_3, c='green')
+            plt.plot(prices_4, c='red')
+            plt.plot(prices_5, c='purple')
+            plt.plot(prices_6, c='brown')
+            plt.plot(prices_7, c='pink')
+            plt.plot(prices_8, c='grey')
+
+        """
+
+    else:
+        print('felaktig data')
+
+    # kolla upp om den skall användas! 
+    #x_values = np.linspace(1980, 2020, 5)
+
+    # Varför fungerar inte detta? 
+    #plt.xlim([1980, 2020])
+
+    categories = [col[0] for col in data[1:]]
+
+    plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
+    plt.xlabel('År', fontsize='x-small')
+    plt.ylabel('Prisutvecklingen', fontsize='x-small')
+    plt.legend(categories, fontsize= 'xx-small', loc='upper left')
+    plt.grid()
+
+    plt.show()
 
 
 
@@ -162,13 +250,13 @@ while True:
         
         # Alternativ 2: 
         """
-        kpi_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
+        kpi_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
         print(kpiData)
 
-        tjanster_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'tjanster.csv'
+        tjanster_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'tjanster.csv'
         print(tjansteData)
 
-        livsmedel_file = input('Ange filnamn avsluta med (.csv) eller tryck bara Enter för kpi.csv: ') or 'livsmedel.csv'
+        livsmedel_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'livsmedel.csv'
         print(livsmedelData)
 
         """
@@ -177,7 +265,36 @@ while True:
         print(f'Den returnerade listan är: {sum_func(kpi_10)}')
 
     elif choice == 3:
-        print(f'Största värdet och dess index är: {great_value(kpi_10)}')
+        print('\n- Meny - ')
+        print('1. Skriv ut TjansteData diagrammet.')
+        print('2. Skriv ut LivsmedelData diagrammet.')
+        print('3. Skriv ut båda diagrammen.\n')
+
+        secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
+
+        if secondChoice == 1:
+            header = 'kategorier av varor och tjänster'
+            plotta_data(tjansteData, header)
+            # anropa funktionen med två argument 
+
+        elif secondChoice == 2:
+            header = 'livsmedel'
+            plotta_data(livsmedelData, header)
+            # anropa funktionen med två argument
+
+        elif secondChoice == 3:
+
+            # hur ska man anropa funktionen så att den tar emot båda listorna och skriver ut båda diagram? 
+            header = 'kategorier av varor och tjänster'
+            header = 'livsmedel'
+            # anropa funktionen med två argument, kan man skicka in båda listorna på detta vis? 
+            plotta_data(tjansteData and livsmedelData, header)
+
+
+
+        else: 
+            print('Ogiltigt val. försök igen från början.\n')
+
 
     elif choice == 4:
         print('Prisutvecklingen för olika kategorier av livsmedel År 1980-2021')
