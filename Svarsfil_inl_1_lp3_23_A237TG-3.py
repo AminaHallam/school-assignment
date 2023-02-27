@@ -20,7 +20,6 @@ def print_kpi_10(): #Skriver ut listan kpi_10
 
 # Import av olika moduler för att underlätta kodning. 
 import matplotlib.pyplot as plt
-import numpy as np 
 import csv 
 
 
@@ -86,7 +85,7 @@ def med_value(myList):
         newList.append(row[-1])                     
         newList.append(round(tot_price, 2))
 
-
+    # If-satser som kontrollerar om det är livsmedelsData eller tjänsteData och returnerar resp. titel annars returneras 0 som är False.
     header1 = "livsmedel" if myList == livsmedelData else False
     header2 = "varor och tjänster" if myList == tjansteData else False
 
@@ -94,6 +93,7 @@ def med_value(myList):
     print(f'{"|"} {"Kategorier av"} {header1 or header2:<26} {"|"} {"Medelvärde":>12} {"|"} {"Totalt":>12} {"|"}')
     print("+","="*40,"+", "="*12, "+", "="*12, "+")
 
+    # For-loopen för att rendera varje 3 element på rad och därefter använda F-sträng för att underlätta utskrivning av tabellen
     for i in range(0, len(newList), 3):
         print(f'{"|"} {newList[i+0]:<40} {"|"} {newList[i+1]:>12} {"|"} {newList[i+2]:>12} {"|"}')
         print("+","-"*40,"+", "-"*12, "+", "-"*12, "+")
@@ -106,73 +106,32 @@ def med_value(myList):
 # If-satsen kollar om det är antingen tjansteData eller livsmedelData, sedan for-loopen renderar listan från index 1.
 # y-variabeln tar in en one-line for-loop som konverterar elementen till float. 
 # plot() tar in (x, y), sedan längst ner i funktionen anges rubriken. 
-# label för både x- och y-axeln samt legent() som tar in kategorier. 
+# label för både x- och y-axeln samt legend() som tar in kategorier. 
 
 def plotta_data(data, header):
 
     # Fråga om hur man får ut åren längs med x-axeln, vilken x ska man ha? 
-    #x = [rows for rows in data[0][1:]]
+    x = [rows for rows in data[0][1:]]
+    #x = range(1, len(data[0]))
     #print(x[::10])
-    x = range(1, len(data[0]))
 
     if data == tjansteData or data == livsmedelData:
-        
-        for i in range(1, len(data)):
 
+        for i in range(1, len(data)):
             y = [float(row) for row in data[i][1:]]
             plt.plot(x, y, label=data[i][0])
-        
 
-    # Skall man göra en till if-sats för att få ut båda diagram bredvid varandra? hur är tanken med det? 
-    elif data == tjansteData and data == livsmedelData:
-        
-        for i in range(1, len(data)):
-            
-            y = [float(row) for row in data[i][1:]]
-            fig , (x, y) = plt.subplots(1, 2)
-            fig.suptitle('Diagram för Livsmedel samt olika varor och tjänster')
-            #ax1.plot(x, y)
-            #ax2.plot(x, y)
-        
-
-        """
-        elif data == livsmedelData:
-
-            prices_1 = [float(row) for row in data[1][1:]]
-            prices_2 = [float(row) for row in data[2][1:]]
-            prices_3 = [float(row) for row in data[3][1:]]
-            prices_4 = [float(row) for row in data[4][1:]]
-            prices_5 = [float(row) for row in data[5][1:]]
-            prices_6 = [float(row) for row in data[6][1:]]
-            prices_7 = [float(row) for row in data[7][1:]]
-            prices_8 = [float(row) for row in data[8][1:]]
-            
-            plt.plot(prices_1, c='blue')
-            plt.plot(prices_2, c='orange')
-            plt.plot(prices_3, c='green')
-            plt.plot(prices_4, c='red')
-            plt.plot(prices_5, c='purple')
-            plt.plot(prices_6, c='brown')
-            plt.plot(prices_7, c='pink')
-            plt.plot(prices_8, c='grey')
-
-        """
 
     else:
         print('felaktig data')
 
-    # kolla upp om den skall användas! 
-    #x_values = np.linspace(1980, 2020, 5)
-
     # Varför fungerar inte detta? 
     #plt.xlim([1980, 2020])
-
-    categories = [col[0] for col in data[1:]]
 
     plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Prisutvecklingen', fontsize='x-small')
-    plt.legend(categories, fontsize= 'xx-small', loc='upper left')
+    plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
 
     plt.show()
@@ -218,7 +177,7 @@ def minimum_value(myList):
 # While-loop som kör if-satsen varje gång efter att användaren har gjort sitt val
 while True:                                      
     
-    # Skriver ut menyn med 6 val: 
+    # Skriver ut första menyn med 6 val: 
     print('\n- Program för att läsa in och analysera resultatet i uppgift 1 - 5 \n')
 
     print('1. Läser in csv-filerna.')
@@ -258,39 +217,36 @@ while True:
 
         livsmedel_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'livsmedel.csv'
         print(livsmedelData)
-
         """
 
     elif choice == 2:
         print(f'Den returnerade listan är: {sum_func(kpi_10)}')
 
     elif choice == 3:
-        print('\n- Meny - ')
+        print('\n- Undermeny - ')
         print('1. Skriv ut diagram för Tjänster.')
         print('2. Skriv ut diagram för Livsmedel.')
         print('3. Skriv ut båda diagrammen.\n')
 
         secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
 
+        # If-satsen kollar vilket val användaren har gjort och och skickar en ny header till funktionen och sedan körs den. 
         if secondChoice == 1:
             header = 'kategorier av varor och tjänster'
             plotta_data(tjansteData, header)
-            # anropa funktionen med två argument 
+           
 
         elif secondChoice == 2:
             header = 'livsmedel'
             plotta_data(livsmedelData, header)
-            # anropa funktionen med två argument
+
 
         elif secondChoice == 3:
-
-            # hur ska man anropa funktionen så att den tar emot båda listorna och skriver ut båda diagram? 
             header = 'kategorier av varor och tjänster'
+            plotta_data(tjansteData, header)
+
             header = 'livsmedel'
-            # anropa funktionen med två argument, kan man skicka in båda listorna på detta vis? 
-            plotta_data(tjansteData and livsmedelData, header)
-
-
+            plotta_data(livsmedelData, header)
 
         else: 
             print('Ogiltigt val. försök igen från början.\n')
