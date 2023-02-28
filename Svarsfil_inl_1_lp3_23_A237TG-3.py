@@ -109,11 +109,8 @@ def med_value(myList):
 # label för både x- och y-axeln samt legend() som tar in kategorier. 
 
 def plotta_data(data, header):
-
-    # Fråga om hur man får ut åren längs med x-axeln, vilken x ska man ha? 
-    x = [rows for rows in data[0][1:]]
-    #x = range(1, len(data[0]))
-    #print(x[::10])
+ 
+    x = [float(rows) for rows in data[0][1:]]
 
     if data == tjansteData or data == livsmedelData:
 
@@ -121,19 +118,14 @@ def plotta_data(data, header):
             y = [float(row) for row in data[i][1:]]
             plt.plot(x, y, label=data[i][0])
 
-
     else:
         print('felaktig data')
-
-    # Varför fungerar inte detta? 
-    #plt.xlim([1980, 2020])
 
     plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Prisutvecklingen', fontsize='x-small')
     plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
-
     plt.show()
 
 
