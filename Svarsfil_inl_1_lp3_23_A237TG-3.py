@@ -110,11 +110,10 @@ def med_value(myList):
 
 def plotta_data(data, header):
  
-    x = [float(rows) for rows in data[0][1:]]
-
     if data == tjansteData or data == livsmedelData:
 
         for i in range(1, len(data)):
+            x = [float(rows) for rows in data[0][1:]]
             y = [float(row) for row in data[i][1:]]
             plt.plot(x, y, label=data[i][0])
 
