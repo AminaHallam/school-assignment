@@ -57,7 +57,6 @@ def sum_func(my_list):
     new_list.insert(0, 'Radsumma')                  
     return new_list                                 
 
-                       
 
 
 
@@ -104,7 +103,7 @@ def med_value(myList):
 # Funktion som skapar ett diagram beroende på vilket argument som skickas med i funktionen. 
 # funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
 # If-satsen kollar om det är antingen tjansteData eller livsmedelData, sedan for-loopen renderar listan från index 1.
-# y-variabeln tar in en one-line for-loop som konverterar elementen till float. 
+# x och y-variabler tar in en one-line for-loop som konverterar elementen till float. 
 # plot() tar in (x, y), sedan längst ner i funktionen anges rubriken. 
 # label för både x- och y-axeln samt legend() som tar in kategorier. 
 
@@ -117,16 +116,16 @@ def plotta_data(data, header):
             y = [float(row) for row in data[i][1:]]
             plt.plot(x, y, label=data[i][0])
 
+
+        plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
+        plt.xlabel('År', fontsize='x-small')
+        plt.ylabel('Prisutvecklingen', fontsize='x-small')
+        plt.legend(fontsize= 'xx-small', loc='upper left')
+        plt.grid()
+        plt.show()
+
     else:
-        print('felaktig data')
-
-    plt.title(f'Prisutvecklingen för olika {header} År 1980-2021', fontsize= 'x-small')
-    plt.xlabel('År', fontsize='x-small')
-    plt.ylabel('Prisutvecklingen', fontsize='x-small')
-    plt.legend(fontsize= 'xx-small', loc='upper left')
-    plt.grid()
-    plt.show()
-
+        print('felaktig data!')
 
 
 
@@ -170,7 +169,6 @@ while True:
     
     # Skriver ut första menyn med 6 val: 
     print('\n- Program för att läsa in och analysera resultatet i uppgift 1 - 5 \n')
-
     print('1. Läser in csv-filerna.')
     print('2. Konsumentprisindex under åren 1980 - 2022.')
     print('3. Prisutvecklingen för de olika kategorierna 1980 - 2021.')
@@ -182,7 +180,7 @@ while True:
 
     if choice == 6:
         print('Tack för denna gång. Programmet avslutas.')
-        break                                               # Programmet avslutas och while-loopen avbruts. 
+        break                      # Programmet avslutas och while-loopen avbruts. 
     
     elif choice == 1: 
 
@@ -214,6 +212,7 @@ while True:
         print(f'Den returnerade listan är: {sum_func(kpi_10)}')
 
     elif choice == 3:
+        # Skriver ut andra menyn med 3 val:
         print('\n- Undermeny - ')
         print('1. Skriv ut diagram för Tjänster.')
         print('2. Skriv ut diagram för Livsmedel.')
@@ -225,12 +224,10 @@ while True:
         if secondChoice == 1:
             header = 'kategorier av varor och tjänster'
             plotta_data(tjansteData, header)
-           
 
         elif secondChoice == 2:
             header = 'livsmedel'
             plotta_data(livsmedelData, header)
-
 
         elif secondChoice == 3:
             header = 'kategorier av varor och tjänster'
