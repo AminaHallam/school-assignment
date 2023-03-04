@@ -121,7 +121,7 @@ def plotta_data(data, header):
 # Appenda först average till row och sedan row till min nya lista. insert på index 0 i newList -> myList med strängen 'Medelvärde'. 
 # Returparameter: En kopia av ursprungslistan med en extra kolumn med medelvärden sist i listan. 
 def med_value_kpi(myList):
-    #myList[0].append('Medelvärde')                  
+                    
     newList = []                                    
 
     for row in myList[1:]:                          
