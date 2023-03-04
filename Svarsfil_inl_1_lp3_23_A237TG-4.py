@@ -144,18 +144,20 @@ def plot_kpi_data(data):
     month_input = input("Ange vilken månad som ska presenteras (1 - 12) heltal: ")
     index = int(month_input)
 
+    value = med_value_kpi(data)
 
-    years = [int(rows[0]) for rows in data[1:]]
+    years = [int(rows[0]) for rows in value[1:]]
+    #print(years)
     
-    values = [float(rows[-1]) for rows in data[1:]]
+    values = [float(rows[-1]) for rows in value[1:]]
     
-    month = [row[0:] for row in data[0:]]
-    #print(month)
+    month = [row[0:] for row in value[0:]]
 
     result = [month_list[index] for month_list in month]
 
+    print(result)
 
-    plt.plot(values, result, c="red", label=f'Linjediagram för {result}')
+    plt.plot(result, c="red", label=f'Linjediagram för {result[0]}')
 
 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
@@ -168,8 +170,6 @@ def plot_kpi_data(data):
     #if index >= 0 and index < len(month) and month_input == str(month_input):
         #print("Månad {} ".format(month[index]))
 
-    
-
     #kpi_values = [med_value_kpi(data[(year)][month-1]) for year in years]
     #print(kpi_values)
 
@@ -179,7 +179,7 @@ def plot_kpi_data(data):
         #print(line_1)
     
         #line_2 = [float(rows) for rows in kpi_values[i][1:]]
-        
+
 
         #x = [(rows) for rows in kpi_values[i][1:]]
         
