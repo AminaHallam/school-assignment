@@ -95,7 +95,7 @@ def med_value(myList):
 
 # Funktion som skapar ett diagram beroende på vilket argument som skickas med i funktionen. 
 # funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
-# If-satsen kollar om det är antingen tjansteData eller livsmedelData, sedan for-loopen renderar listan från index 1.
+# for-loopen renderar listan från index 1.
 # x och y-variabler tar in en one-line for-loop som konverterar elementen till float. 
 # plot() tar in (x, y), sedan längst ner i funktionen anges rubriken. 
 # label för både x- och y-axeln samt legend() som tar in kategorier. 
@@ -116,9 +116,9 @@ def plotta_data(data, header):
 
 
 
-# funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista. Först Lägger till strängen på slutet av myList med index 0. 
+# funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista.  
 # Skapar en ny lista. for-loopen startar från index 1 och renderar listan. Konverterar val till Float.  
-# Appenda först average till row och sedan row till min nya lista. insert på index 0 i newList -> myList med strängen 'Medelvärde'. 
+# Appenda först average till row och sedan row till min nya lista. insert på index 0 i newList -> myList.
 # Returparameter: En kopia av ursprungslistan med en extra kolumn med medelvärden sist i listan. 
 def med_value_kpi(myList):
                     
@@ -198,8 +198,6 @@ def plot_kpi_data(data):
 
 
 
-
-
 # Funktion som returnerar det största värdet på varje rad och dess index för en 2D-lista. Först skapas en ny lista, 
 # For-loopen börjar från index 1 och renderar listorna. Max() funktionen tar fram största värdet från index 1: och index() tar fram indexet till values.
 # Returparameter: En kopia av ursprungslistan med största värde och indexet till det. 
@@ -233,7 +231,6 @@ def minimum_value(myList):
 
 
 
-
 # if-sats som utgår från användarens val och skriver ut resp. funktion:
 # While-loop som kör if-satsen varje gång efter att användaren har gjort sitt val
 while True:                                      
@@ -250,6 +247,7 @@ while True:
     choice = int(input('Välj ett menyalternativ (1-6): ')) 
 
     if choice == 6:
+
         print('Tack för denna gång. Programmet avslutas.')
         break                      # Programmet avslutas och while-loopen avbruts. 
     
@@ -265,13 +263,12 @@ while True:
         print(read_file(livsmedel_file))
 
     elif choice == 2:
+
         kpiData = read_file('kpi.csv')
         plot_kpi_data(kpiData)
-        
-
 
     elif choice == 3:
-        # Skriver ut andra menyn med 3 val:
+        # Skriver ut undermenyn med 3 val och ett input:
         print('\n- Undermeny - ')
         print('1. Skriv ut diagram för Tjänster.')
         print('2. Skriv ut diagram för Livsmedel.')
@@ -279,18 +276,22 @@ while True:
 
         secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
 
-        # If-satsen kollar vilket val användaren har gjort och och skickar en ny header till funktionen och sedan körs den. 
+        # If-satsen kollar vilket val användaren har gjort och sedan läser in varje fil med hjälp av funktionen read_file.
+        # Därefter skickar en ny header till funktionen och sedan körs den. 
         if secondChoice == 1:
+
             tjansteData = read_file('tjanster.csv')
             header = 'varor och tjänster'
             plotta_data(tjansteData, header)
 
         elif secondChoice == 2:
+
             livsmedelData = read_file('livsmedel.csv')
             header = 'livsmedel'
             plotta_data(livsmedelData, header)
 
         elif secondChoice == 3:
+
             tjansteData = read_file('tjanster.csv')
             header = 'varor och tjänster'
             plotta_data(tjansteData, header)
@@ -300,10 +301,11 @@ while True:
             plotta_data(livsmedelData, header)
 
         else: 
-            print('Ogiltigt val. försök igen från början.\n')
+            print('Ogiltigt val. Försök igen från början.\n')
 
 
     elif choice == 4:
+
         livsmedelData = read_file('livsmedel.csv')
         print('Prisutvecklingen för olika kategorier av livsmedel År 1980-2021')
         med_value(livsmedelData)
@@ -315,8 +317,9 @@ while True:
         med_value(tjansteData)   
 
     elif choice == 5: 
+
         print(f'Minsta värdet och dess index är: {minimum_value(kpi_10)}')
 
     else:
-        print('Ogiltigt val. försök igen med en siffra mellan (1-6).\n')
+        print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
 
