@@ -153,13 +153,13 @@ def plot_kpi_data(data):
     
     # exkludera år 2022 då den innehåller bara jan-juli - raden skall tas bort???
     month = [row[0:] for row in value[0:]]
-    print(month)
+    
 
     result = [month_list[index] for month_list in month]
 
-    
+    print(result[1:])
 
-    plt.plot(years, result, c="red", label=f'Linjediagram för {result[0]}')
+    plt.plot(years, result[1:], c="red", label=f'Linjediagram för {result[0]}')
 
 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
