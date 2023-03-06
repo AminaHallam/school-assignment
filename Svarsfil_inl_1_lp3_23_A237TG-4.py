@@ -107,6 +107,10 @@ def plotta_data(data, header):
         y = [float(row) for row in data[i][1:]]
         plt.plot(x, y, label=data[i][0])
 
+
+
+
+
     plt.title(f'Prisutvecklingen för olika kategorier av {header} År 1980-2021', fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Prisutvecklingen', fontsize='x-small')
@@ -138,7 +142,10 @@ def med_value_kpi(myList):
 
 
 
-# Funktion som skapar graf. och stapeldiagram för kpi-data
+# Funktion som skapar graf. och stapeldiagram för kpi-data. Skapar ett input som frågar efter en månad och sedan konverterar input till int. 
+# Anropa funktionen ovan som beräknar medelvärdet och ta in data som parameter. 
+# one-lines for-loopar som renderar listan beroende på om man vill plocka åren, värden eller månader. 
+
 def plot_kpi_data(data): 
 
     month_input = input("Ange vilken månad som ska presenteras (1 - 12) heltal: ")
@@ -147,46 +154,29 @@ def plot_kpi_data(data):
     value = med_value_kpi(data)
 
     years = [int(rows[0]) for rows in value[1:]]
-    #print(years)
-    
+
     values = [float(rows[-1]) for rows in value[1:]]
+
+    # one-line for-loop som tar både element och index med hjälp av enumerate() och exkluderar rad med index 1 som är för år 2022. 
+    month = [row for i, row in enumerate(value) if i != 1 or index <= 7]
+
+    # if-sats som ser om index som skickas av användaren är högre än 7 då börjar åren från index 1: annars börjar åren från 0: 
+    years_input = years[0:] if index < 7 else years[1:]
     
-    # exkludera år 2022 då den innehåller bara jan-juli - raden skall tas bort???
-    month = [row[0:] for row in value[0:]]
-    
+    # Loopen itererar över listan month, och month_list ska representera en viss månad med index som kommer ifrån input.
+    # användaren väljer en månad som sedan returneras med dess värden. 
 
     result = [month_list[index] for month_list in month]
 
-    print(result[1:])
+    months = [float(col) for col in result[1:]]
 
-    plt.plot(years, result[1:], c="red", label=f'Linjediagram för {result[0]}')
-
+    plt.plot(years_input, months, c="red", label=f'Linjediagram för {result[0]}')
 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
-
 
     plt.bar(years, values, color="lightblue", label="kpiMedel")
 
 
-
-    #if index >= 0 and index < len(month) and month_input == str(month_input):
-        #print("Månad {} ".format(month[index]))
-
-    #kpi_values = [med_value_kpi(data[(year)][month-1]) for year in years]
-    #print(kpi_values)
-
-    #for i in range(1, len(kpi_values)):
-
-        #line_1 = [float(rows) for rows in kpi_values[i][1:]]
-        #print(line_1)
-    
-        #line_2 = [float(rows) for rows in kpi_values[i][1:]]
-
-
-        #x = [(rows) for rows in kpi_values[i][1:]]
-        
-        #y = [float(row) for row in data[i][1:]]
-    
     
     plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
@@ -263,7 +253,7 @@ while True:
         print(read_file(livsmedel_file))
 
     elif choice == 2:
-
+        # Funktionen read_file läser csv filer som vi skickar in som en parameter in i funktionen. Variabeln används sedan in i en annan funktion. 
         kpiData = read_file('kpi.csv')
         plot_kpi_data(kpiData)
 
