@@ -103,12 +103,9 @@ def med_value(myList):
 def plotta_data(data, header):
 
     for i in range(1, len(data)):
-        x = [float(rows) for rows in data[0][1:]]
-        y = [float(row) for row in data[i][1:]]
-        plt.plot(x, y, label=data[i][0])
-
-
-
+        x_axis = [float(rows) for rows in data[0][1:]]
+        y_axis = [float(row) for row in data[i][1:]]
+        plt.plot(x_axis, y_axis, label=data[i][0])
 
 
     plt.title(f'Prisutvecklingen för olika kategorier av {header} År 1980-2021', fontsize= 'x-small')
