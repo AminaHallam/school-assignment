@@ -139,11 +139,9 @@ def med_value_kpi(myList):
 # Funktion som skapar graf. och stapeldiagram för kpi-data. Skapar ett input som frågar efter en månad och sedan konverterar input till int. 
 # Anropa funktionen ovan som beräknar medelvärdet och ta in data som parameter. 
 # one-lines for-loopar som renderar listan beroende på om man vill plocka åren, värden eller månader. 
-
 def plot_kpi_data(data): 
 
-    month_input = input("Ange vilken månad som ska presenteras (1 - 12) heltal: ")
-    index = int(month_input)
+    index = int(input("Ange vilken månad som ska presenteras (1 - 12) heltal: "))
 
     value = med_value_kpi(data)
 
@@ -155,7 +153,7 @@ def plot_kpi_data(data):
     month = [row for i, row in enumerate(value) if i != 1 or index <= 7]
 
     # if-sats som ser om index som skickas av användaren är mindre än eller lika med 7 då börjar åren från index 0: annars börjar åren från 1: 
-    years_input = years[0:] if index <= 7 else years[1:]
+    yearsOfInput = years[0:] if index <= 7 else years[1:]
     
     # Loopen itererar över listan month, och month_list ska representera en viss månad med index som kommer ifrån input.
     # Nästa for-loopen konverterar samtliga element från index 1: till float = months. 
@@ -164,7 +162,7 @@ def plot_kpi_data(data):
 
 
     # Plottar den röda linjen med label= result som är månaden som användaren har valt. 
-    plt.plot(years_input, months, c="red", label=f'Linjediagram för {result[0]}')
+    plt.plot(yearsOfInput, months, c="red", label=f'Linjediagram för {result[0]}')
 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
 
@@ -174,6 +172,8 @@ def plot_kpi_data(data):
     plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Konsumentprisindex', fontsize='x-small')
+    plt.ylim(bottom=100)
+    plt.xlim(left=1980)
     plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
     plt.show()
