@@ -154,8 +154,8 @@ def plot_kpi_data(data):
     # one-line for-loop som tar både element och index med hjälp av enumerate() och exkluderar rad med index 1 som är för år 2022 om i inte är 1 eller index är mindre eller = 7. 
     month = [row for i, row in enumerate(value) if i != 1 or index <= 7]
 
-    # if-sats som ser om index som skickas av användaren är mindre än 7 då börjar åren från index 0: annars börjar åren från 1: 
-    years_input = years[0:] if index < 7 else years[1:]
+    # if-sats som ser om index som skickas av användaren är mindre än eller lika med 7 då börjar åren från index 0: annars börjar åren från 1: 
+    years_input = years[0:] if index <= 7 else years[1:]
     
     # Loopen itererar över listan month, och month_list ska representera en viss månad med index som kommer ifrån input.
     # Nästa for-loopen konverterar samtliga element från index 1: till float = months. 
