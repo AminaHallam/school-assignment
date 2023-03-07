@@ -171,14 +171,14 @@ def plot_kpi_data(data):
 
     plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
+    plt.xlim(left=1980)
+    plt.xticks(rotation=90)
     plt.ylabel('Konsumentprisindex', fontsize='x-small')
     plt.ylim(bottom=100)
-    plt.xlim(left=1980)
     plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
     plt.show()
     
-
 
 
 # Funktion som returnerar det största värdet på varje rad och dess index för en 2D-lista. Först skapas en ny lista, 
