@@ -96,8 +96,8 @@ def med_value(myList):
 # Funktion som skapar ett diagram beroende på vilket argument som skickas med i funktionen. 
 # funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
 # for-loopen renderar listan från index 1.
-# x och y-variabler tar in en one-line for-loop som konverterar elementen till float. 
-# plot() tar in (x, y), sedan längst ner i funktionen anges rubriken. 
+# x_axis och y_axis variabler tar in en one-line for-loop som konverterar elementen till float. 
+# plot() tar in (x_axis, y_axis), sedan längst ner i funktionen anges rubriken. 
 # label för både x- och y-axeln samt legend() som tar in kategorier. 
 
 def plotta_data(data, header):
@@ -106,7 +106,6 @@ def plotta_data(data, header):
         x_axis = [float(rows) for rows in data[0][1:]]
         y_axis = [float(row) for row in data[i][1:]]
         plt.plot(x_axis, y_axis, label=data[i][0])
-
 
     plt.title(f'Prisutvecklingen för olika kategorier av {header} År 1980-2021', fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
@@ -137,8 +136,6 @@ def med_value_kpi(myList):
 
 
 
-
-
 # Funktion som skapar graf. och stapeldiagram för kpi-data. Skapar ett input som frågar efter en månad och sedan konverterar input till int. 
 # Anropa funktionen ovan som beräknar medelvärdet och ta in data som parameter. 
 # one-lines for-loopar som renderar listan beroende på om man vill plocka åren, värden eller månader. 
@@ -154,19 +151,19 @@ def plot_kpi_data(data):
 
     values = [float(rows[-1]) for rows in value[1:]]
 
-    # one-line for-loop som tar både element och index med hjälp av enumerate() och exkluderar rad med index 1 som är för år 2022. 
+    # one-line for-loop som tar både element och index med hjälp av enumerate() och exkluderar rad med index 1 som är för år 2022 om i inte är 1 eller index är mindre eller = 7. 
     month = [row for i, row in enumerate(value) if i != 1 or index <= 7]
 
-    # if-sats som ser om index som skickas av användaren är högre än 7 då börjar åren från index 1: annars börjar åren från 0: 
+    # if-sats som ser om index som skickas av användaren är mindre än 7 då börjar åren från index 0: annars börjar åren från 1: 
     years_input = years[0:] if index < 7 else years[1:]
     
     # Loopen itererar över listan month, och month_list ska representera en viss månad med index som kommer ifrån input.
-    # användaren väljer en månad som sedan returneras med dess värden. 
-
+    # Nästa for-loopen konverterar samtliga element från index 1: till float = months. 
     result = [month_list[index] for month_list in month]
-
     months = [float(col) for col in result[1:]]
 
+
+    # Plottar den röda linjen med label= result som är månaden som användaren har valt. 
     plt.plot(years_input, months, c="red", label=f'Linjediagram för {result[0]}')
 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
@@ -174,7 +171,6 @@ def plot_kpi_data(data):
     plt.bar(years, values, color="lightblue", label="kpiMedel")
 
 
-    
     plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
     plt.ylabel('Konsumentprisindex', fontsize='x-small')
