@@ -34,25 +34,6 @@ def read_file(csv_files):
 
 
 
-# Funktion som summerar värdena av samtliga element förutom lista med index 0 som är strängar samt första element i varje lista. Först skapas en ny lista.
-# For-loopen startar från index 1 och renderar listan, andra for-loopen adderar elementen och lägger resultatet i tot. 
-# Returparameter: returnerar den nya listan med det totala summan av elementen. 
-def sum_func(my_list):
-    new_list = []                                   
-
-    for i in range(1, len(my_list)):                
-        tot = 0
-
-        for j in range(1, len(my_list[i])):        
-            tot += float(my_list[i][j])            
-        new_list.append(tot)                        
-            
-    new_list.insert(0, 'Radsumma')                  
-    return new_list                                 
-
-
-
-
 # funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista. Först Lägger till strängen på slutet av myList med index 0. 
 # Skapar en ny lista. for-loopen startar från index 1 och renderar listan. Konverterar val till Float.  
 # Tot_price beräknar total prisutveckling genom att ta sista index minus första index.  
@@ -97,9 +78,7 @@ def med_value(myList):
 # funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
 # for-loopen renderar listan från index 1.
 # x_axis och y_axis variabler tar in en one-line for-loop som konverterar elementen till float. 
-# plot() tar in (x_axis, y_axis), sedan längst ner i funktionen anges rubriken. 
-# label för både x- och y-axeln samt legend() som tar in kategorier. 
-
+# plot() tar in (x_axis, y_axis), och label som börjar från lista 1 och alla index 0 som hamnar på legend().    
 def plotta_data(data, header):
 
     for i in range(1, len(data)):
@@ -163,11 +142,8 @@ def plot_kpi_data(data):
 
     # Plottar den röda linjen med label= result som är månaden som användaren har valt. 
     plt.plot(yearsOfInput, months, c="red", label=f'Linjediagram för {result[0]}')
-
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
-
     plt.bar(years, values, color="lightblue", label="kpiMedel")
-
 
     plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
     plt.xlabel('År', fontsize='x-small')
