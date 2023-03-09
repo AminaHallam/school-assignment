@@ -188,6 +188,29 @@ def minimum_value(myList):
 
 
 
+# Funktion som ritar diagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
+# IN PROGRESS !!!!
+def plot_comparison(data):
+
+    greatValue = great_value(data)
+    minValue = minimum_value(data)
+
+    return greatValue, minValue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ########## Menyn ##########
@@ -275,8 +298,12 @@ while True:
         #med_value(tjansteData)   
 
     elif choice == 5: 
-        
-        print("choice 5")
+        # tillfäligt här - tas bort när funktionen är klar! 
+        livsmedelData = read_file('livsmedel.csv')
+        tjansteData = read_file('tjanster.csv')
+
+
+        print("""plot_comparison(tjansteData)""")
 
     else:
         print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
