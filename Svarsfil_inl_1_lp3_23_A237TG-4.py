@@ -4,10 +4,6 @@
 import matplotlib.pyplot as plt
 import csv 
 
-# OBS!!!! tar bort denna import innan slutliga inlämning 
-import os
-os.system('clear') # function system to issue command cls 
-
 
 # För inlämningsuppgift 1 - se filen jag lämnade in på Canvas. Funktionerna har jag ändrat under tiden jag arbetade med samtliga delar. 
 
@@ -227,8 +223,9 @@ while True:
         print(livsmedelData)
 
     elif choice == 2:
-        # Funktionen som printar ut grafen och tar in kpiData som parameter.  
-        #plot_kpi_data(kpiData)
+        # Funktionen som printar ut grafen och tar in kpiData som parameter. 
+        kpiData = read_file('kpi.csv') 
+        plot_kpi_data(kpiData)
         print("choice 2")
 
     elif choice == 3:
@@ -243,22 +240,24 @@ while True:
         # If-satsen kollar vilket val användaren har gjort.
         # ny header skapas som tas in i funktionen och sedan körs den. 
         if secondChoice == 1:
-            print("choice 2")
-            #header = 'varor och tjänster'
-            #plotta_data(tjansteData, header)
+
+            tjansteData = read_file('tjanster.csv')
+            header = 'varor och tjänster'
+            plotta_data(tjansteData, header)
 
         elif secondChoice == 2:
-            print("choice 2")
-            #header = 'livsmedel'
-            #plotta_data(livsmedelData, header)
+            livsmedelData = read_file('livsmedel.csv')
+            header = 'livsmedel'
+            plotta_data(livsmedelData, header)
 
         elif secondChoice == 3:
-            print("choice 2")
-            #header = 'varor och tjänster'
-            #plotta_data(tjansteData, header)
+            tjansteData = read_file('tjanster.csv')
+            header = 'varor och tjänster'
+            plotta_data(tjansteData, header)
 
-            #header = 'livsmedel'
-            #plotta_data(livsmedelData, header)
+            livsmedelData = read_file('livsmedel.csv')
+            header = 'livsmedel'
+            plotta_data(livsmedelData, header)
 
         else: 
             print('Ogiltigt val. Försök igen från början.\n')
@@ -266,13 +265,14 @@ while True:
 
     elif choice == 4:
 
+        livsmedelData = read_file('livsmedel.csv')
         print('Prisutvecklingen för olika kategorier av livsmedel År 1980-2021')
-        #med_value(livsmedelData)
+        med_value(livsmedelData)
 
         print("\n")
-        
+        tjansteData = read_file('tjanster.csv')
         print('Prisutvecklingen för olika kategorier av varor och tjänster År 1980-2021')
-        #med_value(tjansteData)   
+        med_value(tjansteData)   
 
     elif choice == 5: 
         
