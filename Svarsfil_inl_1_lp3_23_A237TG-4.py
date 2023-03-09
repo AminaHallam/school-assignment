@@ -1,27 +1,19 @@
 # coding: utf-8
 
-import os
-os.system('clear') # function system to issue command cls 
-
-
-kpi_10 = [['År', 'Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'], ['2019', '328.56', '331.02', '331.79', '334.11', '334.95', '334.47', '335.8', '334.39', '335.95', '336.04', '336.36', '337.68'], ['2018', '322.51', '324.87', '325.76', '327.1', '327.86', '328.62', '330.33', '329.63', '331.14', '330.72', '330.4', '331.87'], ['2017', '317.5', '319.73', '319.68', '321.54', '321.74', '321.97', '323.69', '323.18', '323.62', '323.38', '324.04', '325.23'], ['2016', '313.13', '314.14', '315.7', '315.64', '316.21', '316.54', '316.73', '316.38', '316.91', '318', '318.1', '319.68'], ['2015', '310.75', '312.93', '313.19', '313.16', '314.24', '313.33', '313.43', '312.81', '314.06', '314.29', '313.75', '314.21'], ['2014', '311.39', '312.7', '312.68', '313.89', '314.05', '314.7', '313.67', '313.35', '313.85', '314.02', '313.56', '314.05'], ['2013', '312', '313.39', '314.65', '314.03', '314.54', '313.99', '313.55', '313.84', '315.05', '314.4', '314.2', '315.04'], ['2012', '311.85', '313.92', '314.8', '315.49', '315.23', '314.45', '313.23', '313.55', '314.81', '314.59', '313.82', '314.61'], ['2011', '306.15', '308.02', '310.11', '311.44', '312.02', '311.28', '311.13', '311.23', '313.41', '313.42', '314.16', '314.78'], ['2010', '299.79', '301.59', '302.32', '302.36', '302.92', '302.97', '302.04', '302.06', '304.6', '305.57', '306.58', '308.73']]
-
-def print_kpi_10(): #Skriver ut listan kpi_10
-
-    print('\nHela Listan:\n') 
-    print(kpi_10) # Skriver ut hela listan i en utskrift utan radbrytning för varje rad
-
-    print('\nListan radvis\n')
-    for row in kpi_10: # Skriver ut hela listan med radbrytning för varje rad
-        print(row)
-
-
-# Skriv din kod här:
-
 # Import av olika moduler för att underlätta kodning. 
 import matplotlib.pyplot as plt
 import csv 
 
+# OBS!!!! tar bort denna import innan slutliga inlämning 
+import os
+os.system('clear') # function system to issue command cls 
+
+
+# För inlämningsuppgift 1 - se filen jag lämnade in på Canvas. Funktionerna har jag ändrat under tiden jag arbetade med samtliga delar. 
+
+
+
+########## Inlämningsuppgift 2 ##########
 
 #Funktion för att läsa csv-filer.  
 def read_file(csv_files):
@@ -30,8 +22,6 @@ def read_file(csv_files):
         csv_files = list(reader)
         data = [row for row in csv_files]
     return data
-
-
 
 
 # funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista. Först Lägger till strängen på slutet av myList med index 0. 
@@ -74,26 +64,33 @@ def med_value(myList):
 
 
 
+
+########## Inlämningsuppgift 3 ##########
+
 # Funktion som skapar ett diagram beroende på vilket argument som skickas med i funktionen. 
 # funktionen tar in två argument, data som är listan från antingen LivsmedelData eller TjansteData, header är rubriken ovanför diagrammet. 
 # for-loopen renderar listan från index 1.
-# x_axis och y_axis variabler tar in en one-line for-loop som konverterar elementen till float. 
-# plot() tar in (x_axis, y_axis), och label som börjar från lista 1 och alla index 0 som hamnar på legend().    
+# x och y variabler tar in en one-line for-loop som konverterar elementen till float. 
+# plot() tar in (x, y), och label som börjar från lista 1 och alla index 0 som hamnar på legend().    
 def plotta_data(data, header):
 
     for i in range(1, len(data)):
-        x_axis = [float(rows) for rows in data[0][1:]]
-        y_axis = [float(row) for row in data[i][1:]]
-        plt.plot(x_axis, y_axis, label=data[i][0])
+        x = [float(rows) for rows in data[0][1:]]
+        y = [float(row) for row in data[i][1:]]
+        plt.plot(x, y, label=data[i][0])
 
-    plt.title(f'Prisutvecklingen för olika kategorier av {header} År 1980-2021', fontsize= 'x-small')
-    plt.xlabel('År', fontsize='x-small')
-    plt.ylabel('Prisutvecklingen', fontsize='x-small')
+    plt.title(f'Prisutvecklingen för olika kategorier av {header} År 1980-2021', fontsize= 'small')
+    plt.xlabel('År', fontsize='small')
+    plt.ylabel('Prisutvecklingen', fontsize='small')
     plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
     plt.show()
 
 
+
+
+
+########## Inlämningsuppgift 4 ##########
 
 # funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista.  
 # Skapar en ny lista. for-loopen startar från index 1 och renderar listan. Konverterar val till Float.  
@@ -112,7 +109,6 @@ def med_value_kpi(myList):
     newList.insert(0, myList[0])               
 
     return newList
-
 
 
 # Funktion som skapar graf. och stapeldiagram för kpi-data. Skapar ett input som frågar efter en månad och sedan konverterar input till int. 
@@ -145,17 +141,21 @@ def plot_kpi_data(data):
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
     plt.bar(years, values, color="lightblue", label="kpiMedel")
 
-    plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'x-small')
-    plt.xlabel('År', fontsize='x-small')
+    plt.title("Konsumentprisindex År 1980 - 2022", fontsize= 'small')
+    plt.xlabel('År', fontsize='small')
     plt.xlim(left=1980)
     plt.xticks(rotation=90)
-    plt.ylabel('Konsumentprisindex', fontsize='x-small')
+    plt.ylabel('Konsumentprisindex', fontsize='small')
     plt.ylim(bottom=100)
     plt.legend(fontsize= 'xx-small', loc='upper left')
     plt.grid()
     plt.show()
     
 
+
+
+
+########## Inlämningsuppgift 5 ##########
 
 # Funktion som returnerar det största värdet på varje rad och dess index för en 2D-lista. Först skapas en ny lista, 
 # For-loopen börjar från index 1 och renderar listorna. Max() funktionen tar fram största värdet från index 1: och index() tar fram indexet till values.
@@ -170,7 +170,6 @@ def great_value(myList):
         max_value.append([max_val, max_index])
 
     return max_value
-
 
 
 # Funktion som returnerar minsta värdet på varje rad och dess index. Funktionen tar in som argument listan. 
@@ -189,6 +188,32 @@ def minimum_value(myList):
 
 
 
+# Funktion som ritar diagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
+# IN PROGRESS !!!!
+def plot_comparison(data):
+
+    greatValue = great_value(data)
+    minValue = minimum_value(data)
+
+    return greatValue, minValue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########## Menyn ##########
 
 # if-sats som utgår från användarens val och skriver ut resp. funktion:
 # While-loop som kör if-satsen varje gång efter att användaren har gjort sitt val
@@ -213,18 +238,21 @@ while True:
     elif choice == 1: 
 
         kpi_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
-        print(read_file(kpi_file))
+        kpiData = read_file('kpi.csv')
+        print(kpiData)
 
         tjanster_file = input('Ange filnamn eller tryck bara Enter för tjanster.csv: ') or 'tjanster.csv'
-        print(read_file(tjanster_file))
+        tjansteData = read_file('tjanster.csv')
+        print(tjansteData)
 
         livsmedel_file = input('Ange filnamn eller tryck bara Enter för livsmedel.csv: ') or 'livsmedel.csv'
-        print(read_file(livsmedel_file))
+        livsmedelData = read_file('livsmedel.csv')
+        print(livsmedelData)
 
     elif choice == 2:
-        # Funktionen read_file läser csv filer som vi skickar in som en parameter in i funktionen. Variabeln används sedan in i en annan funktion. 
-        kpiData = read_file('kpi.csv')
-        plot_kpi_data(kpiData)
+        # Funktionen som printar ut grafen och tar in kpiData som parameter.  
+        #plot_kpi_data(kpiData)
+        print("choice 2")
 
     elif choice == 3:
         # Skriver ut undermenyn med 3 val och ett input:
@@ -235,29 +263,25 @@ while True:
 
         secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
 
-        # If-satsen kollar vilket val användaren har gjort och sedan läser in varje fil med hjälp av funktionen read_file.
-        # Därefter skickar en ny header till funktionen och sedan körs den. 
+        # If-satsen kollar vilket val användaren har gjort.
+        # ny header skapas som tas in i funktionen och sedan körs den. 
         if secondChoice == 1:
-
-            tjansteData = read_file('tjanster.csv')
-            header = 'varor och tjänster'
-            plotta_data(tjansteData, header)
+            print("choice 2")
+            #header = 'varor och tjänster'
+            #plotta_data(tjansteData, header)
 
         elif secondChoice == 2:
-
-            livsmedelData = read_file('livsmedel.csv')
-            header = 'livsmedel'
-            plotta_data(livsmedelData, header)
+            print("choice 2")
+            #header = 'livsmedel'
+            #plotta_data(livsmedelData, header)
 
         elif secondChoice == 3:
+            print("choice 2")
+            #header = 'varor och tjänster'
+            #plotta_data(tjansteData, header)
 
-            tjansteData = read_file('tjanster.csv')
-            header = 'varor och tjänster'
-            plotta_data(tjansteData, header)
-
-            livsmedelData = read_file('livsmedel.csv')
-            header = 'livsmedel'
-            plotta_data(livsmedelData, header)
+            #header = 'livsmedel'
+            #plotta_data(livsmedelData, header)
 
         else: 
             print('Ogiltigt val. Försök igen från början.\n')
@@ -265,19 +289,21 @@ while True:
 
     elif choice == 4:
 
-        livsmedelData = read_file('livsmedel.csv')
         print('Prisutvecklingen för olika kategorier av livsmedel År 1980-2021')
-        med_value(livsmedelData)
+        #med_value(livsmedelData)
 
         print("\n")
         
-        tjansteData = read_file('tjanster.csv')
         print('Prisutvecklingen för olika kategorier av varor och tjänster År 1980-2021')
-        med_value(tjansteData)   
+        #med_value(tjansteData)   
 
     elif choice == 5: 
+        # tillfäligt här - tas bort när funktionen är klar! 
+        livsmedelData = read_file('livsmedel.csv')
+        tjansteData = read_file('tjanster.csv')
 
-        print(f'Minsta värdet och dess index är: {minimum_value(kpi_10)}')
+
+        print("""plot_comparison(tjansteData)""")
 
     else:
         print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
