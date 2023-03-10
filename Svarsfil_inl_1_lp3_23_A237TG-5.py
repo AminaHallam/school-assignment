@@ -133,6 +133,7 @@ def plot_kpi_data(data):
     # Loopen itererar över listan month, och month_list ska representera en viss månad med index som kommer ifrån input.
     # Nästa for-loopen konverterar samtliga element från index 1: till float = months. 
     result = [month_list[index] for month_list in month]
+
     months = [float(col) for col in result[1:]]
 
 
@@ -176,7 +177,7 @@ def great_value(myList):
 # For-loopen börjar från index 1 och renderar listorna. Min() funktionen tar fram största värdet från index 1: och index() tar fram indexet till values.
 # Returparameter: En kopia av ursprungslistan med största värde och indexet till det. 
 def minimum_value(myList):
-    min_value = []                                    
+    min_value = []                                   
 
     for row in myList[1:]:                            
         values = [float(val) for val in row[0:]]      
@@ -188,15 +189,49 @@ def minimum_value(myList):
 
 
 
-# Funktion som ritar diagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
+# Funktion som ritar ett punktdiagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
 # IN PROGRESS !!!!
 def plot_comparison(data):
 
     greatValue = great_value(data)
     minValue = minimum_value(data)
 
-    return greatValue, minValue
+    max_value = [(rows[-1]) for rows in greatValue[1:]]
+    min_value = [(rows[-1]) for rows in minValue[1:]]
+    
 
+    #months = [(rows[0:]) for rows in data[0]]
+
+    max_years = [int(rows[0]) for rows in greatValue[1:]]
+
+    min_years = [int(rows[0]) for rows in minValue[1:]]
+      
+
+    
+    plt.scatter(max_value, max_years, c="blue", label="Årsmax")
+
+    plt.scatter(min_value, min_years, c="red", label="Årsmin")
+
+    plt.title(f'Månad med högsta resp. lägsta årsvärde av KPI under åren 1980-2022', fontsize= 'small')
+    plt.xlabel('Månad', fontsize='small')
+    plt.ylabel('År', fontsize='small')
+    plt.legend(fontsize= 'xx-small', loc='lower center')
+    plt.grid()
+    plt.show()
+    
+
+    """
+    print(month)
+    print("\n")
+    print(years)
+
+    print("\n")
+
+    print(greatValue)
+    print("\n")
+    print(minValue)
+
+    """
 
 
 
@@ -223,9 +258,9 @@ while True:
     print('\n- Program för att läsa in och analysera resultatet i uppgift 1 - 5 \n')
     print('1. Läser in csv-filerna.')
     print('2. Konsumentprisindex under åren 1980 - 2022.')
-    print('3. Prisutvecklingen för de olika kategorierna 1980 - 2021.')
-    print('4. Prisutvecklingen i procentform för de olika kategorierna 1980 - 2021.')
-    print('5. Jämförelse mellan olika katergorier under åren 1980 - 2021.')
+    print('3. Diagram över prisutvecklingen för de olika kategorierna 1980 – 2021.')
+    print('4. Tabell över prisutvecklingen för de olika kategorierna 1980 – 2021.')
+    print('5. Diagram över högsta och lägsta årskpi under åren 1980 - 2022.')
     print('6. Avsluta programmet.\n')
 
     choice = int(input('Välj ett menyalternativ (1-6): ')) 
@@ -299,11 +334,8 @@ while True:
 
     elif choice == 5: 
         # tillfäligt här - tas bort när funktionen är klar! 
-        livsmedelData = read_file('livsmedel.csv')
-        tjansteData = read_file('tjanster.csv')
-
-
-        print("""plot_comparison(tjansteData)""")
+        kpiData = read_file('kpi.csv')
+        plot_comparison(kpiData)
 
     else:
         print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
