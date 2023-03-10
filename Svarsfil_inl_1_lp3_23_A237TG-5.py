@@ -9,13 +9,17 @@ import os
 os.system('clear') # function system to issue command cls 
 
 
-# För inlämningsuppgift 1 - se filen jag lämnade in på Canvas. Funktionerna har jag ändrat under tiden jag arbetade med samtliga delar. 
+########## Inlämningsuppgift 1 ########## 
+# se filen jag lämnade in på Canvas. Funktionerna har jag ändrat under tiden jag arbetade med samtliga delar. 
 
 
 
 ########## Inlämningsuppgift 2 ##########
 
-#Funktion för att läsa csv-filer.  
+#Funktion för att läsa csv-filer. With open() som tar in "r" - Read. 
+# list() som skapar en ny lista av reader variabeln. 
+# for-loopen för att rendera listan i row och sätts i variabeln data. 
+# returparameter: returnerar det nya listan som ligger i variablen data. 
 def read_file(csv_files):
     with open(csv_files, "r", encoding='UTF-8') as file:
         reader = csv.reader(file, delimiter=';')
@@ -24,12 +28,13 @@ def read_file(csv_files):
     return data
 
 
-# funktion som beräknar medelvärdet av värdena för varje rad för en 2D-lista. Först Lägger till strängen på slutet av myList med index 0. 
+
+# funktion som beräknar medelvärdet av värdena för varje rad i en 2D-lista. 
 # Skapar en ny lista. for-loopen startar från index 1 och renderar listan. Konverterar val till Float.  
 # Tot_price beräknar total prisutveckling genom att ta sista index minus första index.  
 # Beräknar medelvärdet från år 1981 - 2021. 
-# En if-sats som jämför om det är livsmedelData eller tjansteData, 
-# sedan skriver den ut en tabell med hjälp av F-sträng och for-loopen varje rad för sig. 
+# En if-sats som jämför om det är livsmedelData eller tjansteData, returnerar rätt rubrik.
+# sedan skriver den ut en tabell med hjälp av F-sträng och for-loopen av varje rad med 3 element för sig. 
 def med_value(myList):
                      
     newList = []                                    
@@ -111,6 +116,7 @@ def med_value_kpi(myList):
     return newList
 
 
+
 # Funktion som skapar graf. och stapeldiagram för kpi-data. Skapar ett input som frågar efter en månad och sedan konverterar input till int. 
 # Anropa funktionen ovan som beräknar medelvärdet och ta in data som parameter. 
 # one-lines for-loopar som renderar listan beroende på om man vill plocka åren, värden eller månader. 
@@ -173,6 +179,7 @@ def great_value(myList):
     return max_value
 
 
+
 # Funktion som returnerar minsta värdet på varje rad och dess index. Funktionen tar in som argument listan. 
 # For-loopen börjar från index 1 och renderar listorna. Min() funktionen tar fram största värdet från index 1: och index() tar fram indexet till values.
 # Returparameter: En kopia av ursprungslistan med största värde och indexet till det. 
@@ -190,72 +197,47 @@ def minimum_value(myList):
 
 
 # Funktion som ritar ett punktdiagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
+# Anropa funktionerna som beräknar största- och minsta värdet och skickar in data. Sedan vänder på listorna med hjälp av reverse(). 
+# for-loopar som börjar från index 1: för både listorna och lägger resultatet i en variabel max_ och min_value. 
+# Variabeln years renderar åren från 1980, 2022. och därefter plotta diagrammet med två olika färger beroende på listan. 
+
 # IN PROGRESS !!!!
 def plot_comparison(data):
 
     greatValue = great_value(data)
+    greatValue.reverse()
     minValue = minimum_value(data)
+    minValue.reverse()
 
-    max_value = [(rows[-1]) for rows in greatValue[1:]]
-    min_value = [(rows[-1]) for rows in minValue[1:]]
+    max_value = [(rows[1]) for rows in greatValue[1:]]
+    min_value = [(rows[1]) for rows in minValue[1:]]
     
-
-    #months = [(rows[0:]) for rows in data[0]]
-
-    max_years = [int(rows[0]) for rows in greatValue[1:]]
-
-    min_years = [int(rows[0]) for rows in minValue[1:]]
-      
+    years = range(1980, 2022)
 
     
-    plt.scatter(max_value, max_years, c="blue", label="Årsmax")
+    plt.scatter(max_value, years, c="blue", label="Årsmax")
 
-    plt.scatter(min_value, min_years, c="red", label="Årsmin")
+    plt.scatter(min_value, years, c="red", label="Årsmin")
 
     plt.title(f'Månad med högsta resp. lägsta årsvärde av KPI under åren 1980-2022', fontsize= 'small')
     plt.xlabel('Månad', fontsize='small')
     plt.ylabel('År', fontsize='small')
-    plt.legend(fontsize= 'xx-small', loc='lower center')
+    plt.legend(fontsize= 'small', loc='lower center')
     plt.grid()
     plt.show()
     
-
-    """
-    print(month)
-    print("\n")
-    print(years)
-
-    print("\n")
-
-    print(greatValue)
-    print("\n")
-    print(minValue)
-
-    """
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 ########## Menyn ##########
 
-# if-sats som utgår från användarens val och skriver ut resp. funktion:
-# While-loop som kör if-satsen varje gång efter att användaren har gjort sitt val
+# if-sats som utgår från användarens val och skriver ut resp. funktion.
+# While-loop som kör if-satsen varje gång efter att användaren har gjort sitt val, samt ett break som avbruter programmet om användaren väljer alt. 6. 
 while True:                                      
     
     # Skriver ut första menyn med 6 val: 
-    print('\n- Program för att läsa in och analysera resultatet i uppgift 1 - 5 \n')
+    print('\nMeny \n')
     print('1. Läser in csv-filerna.')
     print('2. Konsumentprisindex under åren 1980 - 2022.')
     print('3. Diagram över prisutvecklingen för de olika kategorierna 1980 – 2021.')
