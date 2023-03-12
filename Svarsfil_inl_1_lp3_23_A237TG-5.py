@@ -198,22 +198,22 @@ def minimum_value(myList):
 
 # Funktion som ritar ett punktdiagram med punktform och jämför olika kattegorier under åren 1980 - 2021. 
 # Anropa funktionerna som beräknar största- och minsta värdet och skickar in data. Sedan vänder på listorna med hjälp av reverse(). 
-# for-loopar som börjar från index 1: för både listorna och lägger resultatet i en variabel max_ och min_value. 
-# Variabeln years renderar åren från 1980, 2022. och därefter plotta diagrammet med två olika färger beroende på listan. 
+# for-loopar som tar in listorna och returnerar sista indexet som är [-1] och lägger resultatet i en variabel max_ och min_value. 
+# Variabeln years renderar åren från 1980, 2023 (samma längd som listorna ovanför). och därefter plotta diagrammet med två olika färger beroende på listan. 
 
 # IN PROGRESS !!!!
 def plot_comparison(data):
 
     greatValue = great_value(data)
     greatValue.reverse()
+
     minValue = minimum_value(data)
     minValue.reverse()
 
-    max_value = [(rows[1]) for rows in greatValue[1:]]
-    min_value = [(rows[1]) for rows in minValue[1:]]
+    max_value = [rows[-1] for rows in greatValue]
+    min_value = [rows[-1] for rows in minValue]
+    years = range(1980, 2023)
     
-    years = range(1980, 2022)
-
     
     plt.scatter(max_value, years, c="blue", label="Årsmax")
 
