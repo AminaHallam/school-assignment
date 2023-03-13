@@ -1,5 +1,4 @@
 # coding: utf-8
-
 # Import av olika moduler för att underlätta kodning. Första importen döps om till förkortningen 'plt'  
 import matplotlib.pyplot as plt
 import csv 
@@ -8,10 +7,7 @@ import csv
 ########## Inlämningsuppgift 1 ########## 
 
 
-## Ska alla funktioner från deluppgift 1 vara här ??? 
-
-
-
+# Se filen som jag har lämnat in på Canvas gällande deluppgift 1. 
 
 
 ########## Inlämningsuppgift 2 ##########
@@ -246,7 +242,6 @@ while True:
     choice = int(input('Välj ett menyalternativ (1-6): ')) 
 
     if choice == 6:
-
         print('\nTack för denna gång. Programmet avslutas.')
         break                      # Programmet avslutas och while-loopen avbruts. 
     
