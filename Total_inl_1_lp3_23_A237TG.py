@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # Import av olika moduler för att underlätta kodning. Första importen döps om till förkortningen 'plt'  
 import matplotlib.pyplot as plt
 import csv 
@@ -6,14 +7,32 @@ import csv
 
 ########## Inlämningsuppgift 1 ########## 
 
+# Funktion som summerar värdena av samtliga element förutom lista med index 0 som är strängar samt första element i varje lista. 
+# Först skapas en ny lista.
+# For-loopen startar från index 1 och renderar listan, andra for-loopen renderar elementen från index 1, och sedan adderar elementen och lägger resultatet i tot. 
+# Returparameter: returnerar den nya listan med det totala summan av elementen. 
+# insert() lägger till i början av listan en sträng 'Radsumma'. 
+def sum_func(my_list):
+    new_list = []                                   
 
-# Se filen som jag har lämnat in på Canvas gällande deluppgift 1. 
+    for i in range(1, len(my_list)):                
+        tot = 0
+
+        for j in range(1, len(my_list[i])):        
+            tot += float(my_list[i][j])            
+        new_list.append(tot)                        
+            
+    new_list.insert(0, 'Radsumma')                  
+    return new_list                                 
+
+ 
+
 
 
 ########## Inlämningsuppgift 2 ##########
 
 #Funktion för att läsa csv-filer. With open() som tar in "r" - Read. 
-# list() som skapar en ny lista av reader variabeln. 
+# list() som skapar en ny lista av variabeln reader. 
 # for-loopen för att rendera listan i row och sätts i variabeln data. 
 # returparameter: returnerar det nya listan som ligger i variablen data. 
 def read_file(csv_files):
@@ -29,8 +48,7 @@ def read_file(csv_files):
 # Skapar en ny lista. for-loopen startar från index 1 och renderar listan. Konverterar val till Float.  
 # Tot_price beräknar total prisutveckling genom att ta sista index minus första index.  
 # Beräknar medelvärdet från år 1981 - 2021. 
-# En if-sats som jämför om det är livsmedelData eller tjansteData, returnerar rätt rubrik.
-# sedan skriver den ut en tabell med hjälp av F-sträng och for-loopen av varje rad med 3 element för sig. 
+# Samtliga printar skriver ut en tabell med hjälp av F-sträng och for-loopen av varje rad med 3 element för sig. 
 def med_value(myList):
                      
     newList = []                                    
@@ -136,9 +154,12 @@ def plot_kpi_data(data):
     result = [month_list[index] for month_list in month]
     months = [float(col) for col in result[1:]]
 
+    # Ny lista som innehåller samtliga månader skrivna på rätt sätt och inte som i det ursprungliga lista som hade förkortningar av månaderna.
+    monthList = ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'juli', 'Augusti', 'September', 'Oktober', 'November', 'December']
 
-    # Plottar den röda linjen med label= result som är månaden som användaren har valt. 
-    plt.plot(yearsOfInput, months, c="red", label=f'Linjediagram för {result[0]}')
+
+    # Plottar den röda linjen med label= monthList[index] indexet är det som användaren anger. 
+    plt.plot(yearsOfInput, months, c="red", label=f'Linjediagram för {monthList[index]}')
 
     # Plottar först linjediagramet med svart färg och sedan stapeldiagram med ljusblå färg. 
     plt.plot(years, values, c="black", label="Linjediagram för medelkpi")
@@ -177,8 +198,8 @@ def great_value(myList):
 
 
 # Funktion som returnerar minsta värdet på varje rad och dess index. Funktionen tar in som argument listan. 
-# For-loopen börjar från index 1 och renderar listorna. Min() funktionen tar fram största värdet från index 1: och index() tar fram indexet till values.
-# Returparameter: En kopia av ursprungslistan med största värde och indexet till det. 
+# For-loopen börjar från index 1 och renderar listorna. Min() funktionen tar fram minsta värdet från index 1: och index() tar fram indexet till values.
+# Returparameter: En kopia av ursprungslistan med minsta värde och indexet till det. 
 def minimum_value(myList):
     min_value = []                                   
 
@@ -239,32 +260,31 @@ while True:
     print('5. Diagram över högsta och lägsta årskpi under åren 1980 - 2022.')
     print('6. Avsluta programmet.\n')
 
-    choice = int(input('Välj ett menyalternativ (1-6): ')) 
+    choice = str(input('Välj ett menyalternativ (1-6): ')) 
 
-    if choice == 6:
+    if choice == '6':
         print('\nTack för denna gång. Programmet avslutas.')
         break                      # Programmet avslutas och while-loopen avbruts. 
     
-    elif choice == 1: 
+    elif choice == '1': 
 
-        kpi_file = input('Ange filnamn eller tryck bara Enter för kpi.csv: ') or 'kpi.csv'
+        kpi_file = str(input('Ange filnamn eller tryck bara Enter för kpi.csv: ')) or 'kpi.csv'
         kpiData = read_file('kpi.csv')
         print(kpiData[:2])         # Printar 2 första listor från kpi.csv
 
-        tjanster_file = input('Ange filnamn eller tryck bara Enter för tjanster.csv: ') or 'tjanster.csv'
+        tjanster_file = str(input('Ange filnamn eller tryck bara Enter för tjanster.csv: ')) or 'tjanster.csv'
         tjansteData = read_file('tjanster.csv')
         print(tjansteData[:2])     # Printar 2 första listor från tjanster.csv
 
-        livsmedel_file = input('Ange filnamn eller tryck bara Enter för livsmedel.csv: ') or 'livsmedel.csv'
+        livsmedel_file = str(input('Ange filnamn eller tryck bara Enter för livsmedel.csv: ')) or 'livsmedel.csv'
         livsmedelData = read_file('livsmedel.csv')
         print(livsmedelData[:2])   # Printar 2 första listor från livsmedel.csv
 
-    elif choice == 2:
+    elif choice == '2':
         # Funktionen som printar ut grafen och tar in kpiData som parameter.  
         plot_kpi_data(kpiData)
-        print("choice 2")
 
-    elif choice == 3:
+    elif choice == '3':
         # Skriver ut undermenyn med 3 val och ett input:
         print('\n- Undermeny -\n')
         print('Välj vilken/vilka listor vill du få diagram från:')
@@ -272,18 +292,18 @@ while True:
         print('2. tjansteData')
         print('3. Både livsmedelData och tjansteData\n')
 
-        secondChoice = int(input('Välj ett av menyalternativ ovan (1-3): '))
+        secondChoice = str((input('Välj ett av menyalternativ ovan (1-3): ')))
 
         # ny header skapas som tas in i funktionen och sedan körs den. 
-        if secondChoice == 1:
+        if secondChoice == '1':
             header = 'livsmedel'
             plotta_data(livsmedelData, header)
 
-        elif secondChoice == 2:
+        elif secondChoice == '2':
             header = 'varor och tjänster'
             plotta_data(tjansteData, header)
 
-        elif secondChoice == 3:
+        elif secondChoice == '3':
             header = 'livsmedel'
             plotta_data(livsmedelData, header)
 
@@ -293,7 +313,7 @@ while True:
         else: 
             print('Ogiltigt val. Försök igen från början.\n')
 
-    elif choice == 4:
+    elif choice == '4':
 
         print('\nPrisutvecklingen för olika kategorier av livsmedel År 1980-2021')
         med_value(livsmedelData)
@@ -303,8 +323,9 @@ while True:
         print('Prisutvecklingen för olika kategorier av varor och tjänster År 1980-2021')
         med_value(tjansteData)   
 
-    elif choice == 5: 
+    elif choice == '5': 
         plot_comparison(kpiData)
 
     else:
         print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
+
