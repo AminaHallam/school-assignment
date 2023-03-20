@@ -295,20 +295,19 @@ while True:
         secondChoice = str((input('Välj ett av menyalternativ ovan (1-3): ')))
 
         # ny header skapas som tas in i funktionen och sedan körs den. 
+        header_1 = 'livsmedel'
+        header_2 = 'varor och tjänster'
+
         if secondChoice == '1':
-            header = 'livsmedel'
-            plotta_data(livsmedelData, header)
+            plotta_data(livsmedelData, header_1)
 
         elif secondChoice == '2':
-            header = 'varor och tjänster'
-            plotta_data(tjansteData, header)
+            plotta_data(tjansteData, header_2)
 
         elif secondChoice == '3':
-            header = 'livsmedel'
-            plotta_data(livsmedelData, header)
+            plotta_data(livsmedelData, header_1)
 
-            header = 'varor och tjänster'
-            plotta_data(tjansteData, header)
+            plotta_data(tjansteData, header_2)
 
         else: 
             print('Ogiltigt val. Försök igen från början.\n')
@@ -328,4 +327,3 @@ while True:
 
     else:
         print('Ogiltigt val. Försök igen med en siffra mellan (1-6).\n')
-
