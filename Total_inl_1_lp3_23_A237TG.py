@@ -294,7 +294,7 @@ while True:
 
         secondChoice = str((input('Välj ett av menyalternativ ovan (1-3): ')))
 
-        # ny header skapas som tas in i funktionen och sedan körs den. 
+        # nya header skapas som tas in i funktioner beroende på vilken data som skickas in som första parameter. 
         header_1 = 'livsmedel'
         header_2 = 'varor och tjänster'
 
